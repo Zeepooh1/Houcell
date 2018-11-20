@@ -15,10 +15,10 @@ namespace HouCell.Controllers
             return View();
         }
 
-        public IActionResult About()
+        public IActionResult About(string test)
         {
             ViewData["Message"] = "Your application description page.";
-
+            ViewData["Test"] = test;
             return View();
         }
 
