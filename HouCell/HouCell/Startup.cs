@@ -10,6 +10,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+//novo
+using HouCell.Models;
+using Microsoft.EntityFrameworkCore;
+
 namespace HouCell
 {
     public class Startup
@@ -33,6 +37,10 @@ namespace HouCell
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            //novo
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=HouCell;Trusted_Connection=True;ConnectRetryCount=0";
+            services.AddDbContext<HouCellContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
