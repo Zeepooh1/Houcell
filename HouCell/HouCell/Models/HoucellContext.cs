@@ -43,12 +43,11 @@ namespace HouCell.Models
                 entity.ToTable("hisa", "houcell");
 
                 entity.HasIndex(e => e.UserId)
-                    .HasName("userID");
+                    .HasName("fk_userID");
 
                 entity.Property(e => e.HisaId)
                     .HasColumnName("hisaID")
-                    .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.Naslov)
                     .IsRequired()
@@ -63,8 +62,7 @@ namespace HouCell.Models
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Hisa)
                     .HasForeignKey(d => d.UserId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("hisa_ibfk_1");
+                    .HasConstraintName("fk_userID");
             });
 
             modelBuilder.Entity<Senzorji>(entity =>
@@ -74,11 +72,12 @@ namespace HouCell.Models
                 entity.ToTable("senzorji", "houcell");
 
                 entity.HasIndex(e => e.SobaId)
-                    .HasName("sobaID");
+                    .HasName("fk_sobaID");
 
                 entity.Property(e => e.SenzorId)
                     .HasColumnName("senzorID")
-                    .HasColumnType("int(11)");
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.SobaId)
                     .HasColumnName("sobaID")
@@ -91,14 +90,12 @@ namespace HouCell.Models
                 entity.HasOne(d => d.Senzor)
                     .WithMany(p => p.Senzorji)
                     .HasForeignKey(d => d.SenzorId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("senzorji_ibfk_1");
+                    .HasConstraintName("fk_senzorID");
 
                 entity.HasOne(d => d.Soba)
                     .WithMany(p => p.Senzorji)
                     .HasForeignKey(d => d.SobaId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("senzorji_ibfk_2");
+                    .HasConstraintName("fk_sobaID");
             });
 
             modelBuilder.Entity<Soba>(entity =>
@@ -106,12 +103,11 @@ namespace HouCell.Models
                 entity.ToTable("soba", "houcell");
 
                 entity.HasIndex(e => e.HisaId)
-                    .HasName("hisaID");
+                    .HasName("fk_hisaID");
 
                 entity.Property(e => e.SobaId)
                     .HasColumnName("sobaID")
-                    .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.HisaId)
                     .HasColumnName("hisaID")
@@ -120,14 +116,13 @@ namespace HouCell.Models
                 entity.Property(e => e.ImeSobe)
                     .IsRequired()
                     .HasColumnName("imeSobe")
-                    .HasMaxLength(80)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.HasOne(d => d.Hisa)
                     .WithMany(p => p.Soba)
                     .HasForeignKey(d => d.HisaId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("soba_ibfk_1");
+                    .HasConstraintName("fk_hisaID");
             });
 
             modelBuilder.Entity<Tipsenzorja>(entity =>
@@ -138,13 +133,12 @@ namespace HouCell.Models
 
                 entity.Property(e => e.SenzorId)
                     .HasColumnName("senzorID")
-                    .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.ImeSenzorja)
                     .IsRequired()
                     .HasColumnName("imeSenzorja")
-                    .HasMaxLength(80)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
             });
 
@@ -156,19 +150,18 @@ namespace HouCell.Models
 
                 entity.Property(e => e.UserId)
                     .HasColumnName("userID")
-                    .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .HasColumnType("int(11)");
 
-                entity.Property(e => e.Password)
+                entity.Property(e => e.Pass)
                     .IsRequired()
-                    .HasColumnName("password")
-                    .HasMaxLength(80)
+                    .HasColumnName("pass")
+                    .HasMaxLength(50)
                     .IsUnicode(false);
 
                 entity.Property(e => e.UserName)
                     .IsRequired()
                     .HasColumnName("userName")
-                    .HasMaxLength(80)
+                    .HasMaxLength(50)
                     .IsUnicode(false);
             });
         }
