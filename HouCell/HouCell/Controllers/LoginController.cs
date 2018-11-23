@@ -32,6 +32,7 @@ namespace HouCell.Controllers
                         ViewData["password"] = reader["password"];
                     }
                 }
+                connection.Close();
             }
 
             return View();
