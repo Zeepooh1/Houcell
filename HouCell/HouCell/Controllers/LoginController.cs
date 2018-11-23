@@ -12,30 +12,52 @@ namespace HouCell.Controllers
     public class LoginController : Controller
     {
         // GET: /<controller>/
+        [HttpGet]
         public IActionResult Index()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Index(string userName, string pass)
+        {
+
+            bool success = false;
 
             using (var connection = new MySqlConnection
             {
+
+                //SPREMENI CONNECTION STRING 
                 ConnectionString = "server=localhost;user id=root;password=;persistsecurityinfo=True;port=3306;database=Houcell"
             })
             {
                 connection.Open();
-                var command = new MySqlCommand("SELECT * FROM uporabnik;", connection);
-
-                using (MySqlDataReader reader = command.ExecuteReader())
+                string query = "SELECT * FROM uporabnik WHERE userName =@userName AND pass =@pass;";
+                var command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@userName", userName);
+                command.Parameters.AddWithValue("@pass", pass);
+                Console.WriteLine("Username: " + userName);
+                using (MySqlDataReader reader = command.ExecuteReader()) 
                 {
                     while (reader.Read())
                     {
                         ViewData["userID"] = reader["userID"] + "";
                         ViewData["userName"] = reader["userName"];
-                        ViewData["password"] = reader["password"];
+                        ViewData["password"] = reader["pass"];
+                        success = true;
                     }
                 }
                 connection.Close();
             }
-
-            return View();
+            if (success)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                return View();
+            }
         }
+
     }
 }

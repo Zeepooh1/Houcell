@@ -3,10 +3,9 @@
     Layout = "LoginLayout";
 }
 
-<p>UserID: @ViewData["userID"]</p>
-<p>User: @ViewData["userName"]</p>
-<p>pass: @ViewData["password"]</p>
-<input type="text" name="username" id="userName" /><br />
-<br />
-<input type="password" name="password" id="password" />
-<button type="submit" id="login" onclick="clicked()">login</button>
+<form method="POST">
+    <input type="text" name="userName" type="text" id="userName" /><br />
+    <br />
+    <input type="password" name="pass" id="pass" />
+    <button type="submit" id="login">login</button>
+</form>
