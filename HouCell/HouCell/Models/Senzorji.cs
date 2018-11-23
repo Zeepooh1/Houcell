@@ -5,12 +5,11 @@ namespace HouCell.Models
 {
     public partial class Senzorji
     {
-        public int IdSenzor { get; set; }
-        public int IdSobe { get; set; }
-        public int IdTip { get; set; }
-        public int Vrednost { get; set; }
+        public int SenzorId { get; set; }
+        public int SobaId { get; set; }
+        public int VrednostSenzorja { get; set; }
 
-        public Sobe IdSobeNavigation { get; set; }
-        public TipiSenzorjev IdTipNavigation { get; set; }
+        public Tipsenzorja Senzor { get; set; }
+        public Soba Soba { get; set; }
     }
 }

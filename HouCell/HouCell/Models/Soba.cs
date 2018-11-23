@@ -3,16 +3,18 @@ using System.Collections.Generic;
 
 namespace HouCell.Models
 {
-    public partial class TipiSenzorjev
+    public partial class Soba
     {
-        public TipiSenzorjev()
+        public Soba()
         {
             Senzorji = new HashSet<Senzorji>();
         }
 
-        public int Id { get; set; }
-        public string Ime { get; set; }
+        public int SobaId { get; set; }
+        public int HisaId { get; set; }
+        public string ImeSobe { get; set; }
 
+        public Hisa Hisa { get; set; }
         public ICollection<Senzorji> Senzorji { get; set; }
     }
 }
