@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using MySql.Data.MySqlClient;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -23,7 +24,6 @@ namespace HouCell.Controllers
         {
 
             bool success = false;
-            int redVal = 0;
 
             using (var connection = new MySqlConnection
             {
@@ -43,12 +43,9 @@ namespace HouCell.Controllers
                     while (reader.Read())
                     {
                         //Če je login uspešen v TempData["logID"] zapišem vrednost userID
-                        TempData["logID"] = (int)reader["userID"];
+                        //TempData["logID"] = (int)reader["userID"];
 
-
-                        ViewData["userID"] = reader["userID"];
-                        ViewData["userName"] = reader["userName"];
-                        ViewData["password"] = reader["pass"];
+                        HttpContext.Session.SetInt32("logID", (Int32)reader["userID"]);
                         success = true;
                     }
                 }
