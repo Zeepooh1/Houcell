@@ -23,6 +23,7 @@ namespace HouCell.Controllers
         {
 
             bool success = false;
+            int redVal = 0;
 
             using (var connection = new MySqlConnection
             {
@@ -41,7 +42,11 @@ namespace HouCell.Controllers
                 {
                     while (reader.Read())
                     {
-                        ViewData["userID"] = reader["userID"] + "";
+                        //Če je login uspešen v TempData["logID"] zapišem vrednost userID
+                        TempData["logID"] = (int)reader["userID"];
+
+
+                        ViewData["userID"] = reader["userID"];
                         ViewData["userName"] = reader["userName"];
                         ViewData["password"] = reader["pass"];
                         success = true;
