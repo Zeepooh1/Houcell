@@ -28,7 +28,7 @@ namespace HouCell.Controllers
             {
 
                 //SPREMENI CONNECTION STRING 
-                ConnectionString = "server=localhost;user id=root;password=;persistsecurityinfo=True;port=3306;database=Houcell"
+                ConnectionString = "server=houcellbase.ddns.net;user id=remote;password=seminarskaGeslo;persistsecurityinfo=True;port=3306;database=Houcell"
             })
             {
                 connection.Open();

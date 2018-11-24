@@ -12,7 +12,9 @@ namespace HouCell.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            var entities = new HoucellContext();
+            
+            return View(entities.Senzorji.ToList());
         }
 
         public IActionResult About(string test)

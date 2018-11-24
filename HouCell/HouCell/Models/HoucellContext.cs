@@ -32,7 +32,7 @@ namespace HouCell.Models
                 //*user=remote                                                         *
                 //*password=seminarskaGeslo                                            *
                 //**********************************************************************
-                optionsBuilder.UseMySQL("server=localhost;port=3306;user=root;password=;database=Houcell");
+                optionsBuilder.UseMySQL("server=houcellbase.ddns.net ;port=3306;user=remote;password=seminarskaGeslo;database=Houcell");
             }
         }
 
