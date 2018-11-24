@@ -1,4 +1,4 @@
-﻿@model IEnumerable<HouCell.Models.Senzorji>
+﻿@model HouCell.Models.HiseModel
 
 @{
     ViewData["Title"] = "Senzorji";
@@ -6,36 +6,69 @@
 
 <h2>Senzorji</h2>
 
+<!--
+    trojni foreach loop
+    prvi loop:
+        Gre čez vse hiše ki jih hrani sprejeti model ( to so hiše, ki jih ima uporabnik)
+        drugi loop:
+            Gre čez vse sobe ki jih hrani posamična hiša
+            tretji loop:
+                gre čez vse senzorje v bazi in izipše tiste, ki imajo isti sobaID kot soba iz drugega loopa
+-->
+@foreach (var hise in Model.HiseSeznam)
+{
+    @if (hise.Soba.Count != 0)
+    {
+        <div style="border:solid 1px black; padding:5px">
+            <h3>@hise.Naslov</h3>
+            @foreach (var sobe in hise.Soba)
+            {
+                <div style="border:solid 1px gray; padding:3px">
+                    <h4>@sobe.ImeSobe</h4>
+                    @foreach (var senzor in Model.Senzorji)
+                    {
+                        @if (senzor.SobaId == sobe.SobaId)
+                        {
+                            <p>@senzor.Senzor.ImeSenzorja vrednost: @senzor.VrednostSenzorja</p>
+                        }
+                    }
+                </div>
+            }
+        </div>
+    }
+}
 
+<!--
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.SenzorId)
+                //Html.DisplayNameFor(model => model.SenzorId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SobaId)
+                //Html.DisplayNameFor(model => model.SobaId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.VrednostSenzorja)
+                //Html.DisplayNameFor(model => model.VrednostSenzorja)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        //foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SenzorId)
+                    //Html.DisplayFor(modelItem => item.SenzorId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SobaId)
+                   //Html.DisplayFor(modelItem => item.SobaId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.VrednostSenzorja)
+                    //Html.DisplayFor(modelItem => item.VrednostSenzorja)
                 </td>
             </tr>
         }
     </tbody>
 </table>
+    -->
