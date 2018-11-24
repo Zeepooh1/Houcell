@@ -15,7 +15,11 @@ namespace HouCell.Controllers
         public IActionResult Index()
         {
             //če je TempData["logID"] prazen pomeni da ni bil uspešen login - client nima svojega id-ja
-            if (HttpContext.Session.GetInt32("logID") == null)
+            /*if (HttpContext.Session.GetInt32("logID") == null)
+            {
+                return RedirectToAction("Index", "Login");
+            }*/
+            if(TempData.Peek("logID") == null)
             {
                 return RedirectToAction("Index", "Login");
             }
@@ -83,6 +87,7 @@ namespace HouCell.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
+            TempData.Clear();
             return RedirectToAction("Index", "Login");
         }
     }

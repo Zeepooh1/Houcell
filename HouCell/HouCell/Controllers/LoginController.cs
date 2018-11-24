@@ -46,6 +46,7 @@ namespace HouCell.Controllers
                         //TempData["logID"] = (int)reader["userID"];
 
                         HttpContext.Session.SetInt32("logID", (Int32)reader["userID"]);
+                        TempData["logID"] = (int)reader["userID"];
                         success = true;
                     }
                 }
