@@ -31,8 +31,8 @@ namespace HouCell
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(10);
-                options.Cookie.HttpOnly = true;
-                options.Cookie.Name = ".LogIn.Session";
+                options.Cookie.HttpOnly = false;
+                options.Cookie.Name = "LogInSession";
 
             });
 
