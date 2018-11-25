@@ -20,94 +20,154 @@
 {
     @if (hise.Soba.Count != 0)
     {
-        <div style="border:solid 1px black; padding:5px">
+        <div class="row">
             <h3>@hise.Naslov</h3>
             @foreach (var sobe in hise.Soba)
             {
-            <div style="border:solid 1px gray; padding:3px">
+            <div class="row">
                 <h4>@sobe.ImeSobe</h4>
                 @foreach (var senzor in Model.Senzorji)
                 {
                     @if (senzor.SobaId == sobe.SobaId)
                     {
-
-                        @if (senzor.SenzorId == 1)
-                        {
-
-                            @if (senzor.VrednostSenzorja <= 17)
+                        <div class="row">
+                            @if (senzor.SenzorId == 1)
                             {
-                                <p>@senzor.Senzor.ImeSenzorja temperatura: @senzor.VrednostSenzorja °C      V sobi je hladno.</p>
+
+                                @if (senzor.VrednostSenzorja <= 17)
+                                {
+                                    <div class="col-md-3">
+                                        @senzor.Senzor.ImeSenzorja temperatura: @senzor.VrednostSenzorja °C
+                                    </div>
+                                    <div class="col-md-4">
+                                        V sobi je hladno.
+                                    </div>
+                                }
+
+                                else if (18 <= senzor.VrednostSenzorja && senzor.VrednostSenzorja < 26)
+                                {
+                                    <div class="col-md-3">
+                                        @senzor.Senzor.ImeSenzorja temperatura: @senzor.VrednostSenzorja °C
+                                    </div>
+                                    <div class="col-md-4">
+                                        Sobna temperatura.
+                                    </div>
+                                }
+
+                                else if (senzor.VrednostSenzorja > 26)
+                                {
+                                    <div class="col-md-3">
+                                        @senzor.Senzor.ImeSenzorja temperatura: @senzor.VrednostSenzorja °C
+                                    </div>
+                                    <div class="col-md-4">
+                                        V sobi je zelo vroče.
+                                    </div>
+                                }
+
+                                else if (senzor.VrednostSenzorja > 150)
+                                {
+                                    <div class="col-md-3">
+                                        @senzor.Senzor.ImeSenzorja temperatura: @senzor.VrednostSenzorja °C
+                                    </div>
+                                    <div class="col-md-4">
+                                        Previsoka temperatura je sprožila alarm!
+                                    </div>
+                                }
+
                             }
 
-                            else if (18 <= senzor.VrednostSenzorja && senzor.VrednostSenzorja < 26)
+                            else if (senzor.SenzorId == 2)
                             {
-                                <p>@senzor.Senzor.ImeSenzorja temperatura: @senzor.VrednostSenzorja °C      Sobna temperatura.</p>
+
+                                @if (20 <= senzor.VrednostSenzorja && senzor.VrednostSenzorja < 70)
+                                {
+                                    <div class="col-md-3">
+                                        @senzor.Senzor.ImeSenzorja stopnja svetlosti: @senzor.VrednostSenzorja 
+                                    </div>
+                                    <div class="col-md-4">
+                                        Najverjetneje je prižgana luč.
+                                    </div>
+                                }
+
+                                else if (senzor.VrednostSenzorja < 20)
+                                {
+                                    <div class="col-md-3">
+                                        @senzor.Senzor.ImeSenzorja stopnja svetlosti: @senzor.VrednostSenzorja 
+                                    </div>
+                                    <div class="col-md-4">
+                                        V sobi je zelo temno.
+                                    </div>
+                                }
+
+                                else if (70 <= senzor.VrednostSenzorja && senzor.VrednostSenzorja <= 100)
+                                {
+                                    <div class="col-md-3">
+                                        @senzor.Senzor.ImeSenzorja stopnja svetlosti: @senzor.VrednostSenzorja 
+                                    </div>
+                                    <div class="col-md-4">
+                                        V sobi je zelo svetlo -> velika poraba energije.
+                                    </div>
+                                }
+
                             }
 
-                            else if (senzor.VrednostSenzorja > 26)
+                            else if (senzor.SenzorId == 3)
                             {
-                                <p>@senzor.Senzor.ImeSenzorja temperatura: @senzor.VrednostSenzorja °C      V sobi je zelo vroče.</p>
+
+                                @if (senzor.VrednostSenzorja < 30)
+                                {
+                                    <div class="col-md-3">
+                                        @senzor.Senzor.ImeSenzorja vlažnost zraka: @senzor.VrednostSenzorja %
+                                    </div>
+                                    <div class="col-md-4">
+                                        Zrak v sobi je zelo suh.
+                                    </div>
+                                }
+
+                                else if (30 <= senzor.VrednostSenzorja && senzor.VrednostSenzorja < 55)
+                                {
+                                    <div class="col-md-3">
+                                        @senzor.Senzor.ImeSenzorja vlažnost zraka: @senzor.VrednostSenzorja %
+                                    </div>
+                                    <div class="col-md-4">
+                                        Vlaga v prostoru je optimalna.
+                                    </div>
+                                }
+
+                                else if (senzor.VrednostSenzorja > 55)
+                                {
+                                    <div class="col-md-3">
+                                        @senzor.Senzor.ImeSenzorja vlažnost zraka: @senzor.VrednostSenzorja %
+                                    </div>
+                                    <div class="col-md-4">
+                                        Stopnja vlage v zraku, je prevelika in je zdravju škodljiva!
+                                    </div>
+                                }
+
                             }
 
-                            else if (senzor.VrednostSenzorja > 150)
+                            else if (senzor.SenzorId == 4)
                             {
-                                <p>@senzor.Senzor.ImeSenzorja temperatura: @senzor.VrednostSenzorja °C      Previsoka temperatura je sprožila alarm!</p>
+                                @if (senzor.VrednostSenzorja == 0)
+                                {
+                                    <div class="col-md-3">
+                                        @senzor.Senzor.ImeSenzorja zaznavanje premika: @senzor.VrednostSenzorja 
+                                    </div>
+                                    <div class="col-md-4">
+                                        Soba je prazna.
+                                    </div>
+                                }
+                                else if (senzor.VrednostSenzorja > 0)
+                                {
+                                    <div class="col-md-3">
+                                        @senzor.Senzor.ImeSenzorja zaznavanje premika: @senzor.VrednostSenzorja 
+                                    </div>
+                                    <div class="col-md-4">
+                                        Nekdo je v sobi.
+                                    </div>
+                                }
                             }
-
-                        }
-
-                        else if (senzor.SenzorId == 2)
-                        {
-
-                            @if (20 <= senzor.VrednostSenzorja && senzor.VrednostSenzorja <70 )
-                            {
-                                <p>@senzor.Senzor.ImeSenzorja stopnja svetlosti: @senzor.VrednostSenzorja       Najverjetneje je prižgana luč.</p>
-                            }
-
-                            else if (senzor.VrednostSenzorja < 20)
-                            {
-                                <p>@senzor.Senzor.ImeSenzorja stopnja svetlosti: @senzor.VrednostSenzorja       V sobi je zelo temno.</p>
-                            }
-
-                            else if (70 <= senzor.VrednostSenzorja && senzor.VrednostSenzorja <= 100)
-                            {
-                                <p>@senzor.Senzor.ImeSenzorja stopnja svetlosti: @senzor.VrednostSenzorja       V sobi je zelo svetlo -> velika poraba energije.</p>
-                            }
-
-                        }
-
-                        else if (senzor.SenzorId == 3)
-                        {
-
-                            @if (senzor.VrednostSenzorja < 30)
-                            {
-                                <p>@senzor.Senzor.ImeSenzorja vlažnost zraka: @senzor.VrednostSenzorja %      Zrak v sobi je zelo suh.</p>
-                            }
-
-                            else if (30 <= senzor.VrednostSenzorja && senzor.VrednostSenzorja < 55)
-                            {
-                                <p>@senzor.Senzor.ImeSenzorja vlažnost zraka: @senzor.VrednostSenzorja %      Vlaga v prostoru je optimalna.</p>
-                            }
-
-                            else if (senzor.VrednostSenzorja > 55)
-                            {
-                                <p>@senzor.Senzor.ImeSenzorja vlažnost zraka: @senzor.VrednostSenzorja %      Stopnja vlage v zraku, je prevelika in je zdravju škodljiva!</p>
-                            }
-
-                        }
-
-                        else if (senzor.SenzorId == 4)
-                        {
-                            @if (senzor.VrednostSenzorja == 0)
-                            {
-                                <p>@senzor.Senzor.ImeSenzorja zaznavanje premika: @senzor.VrednostSenzorja       Soba je prazna.</p>
-                            }
-                            else if (senzor.VrednostSenzorja > 0)
-                            {
-                                <p>@senzor.Senzor.ImeSenzorja zaznavanje premika: @senzor.VrednostSenzorja       Nekdo je v sobi.</p>
-                            }
-                        }
-
+                        </div>
                     }
                 }
             </div>
