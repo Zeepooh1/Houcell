@@ -4,7 +4,7 @@
     ViewData["Title"] = "Senzorji";
 }
 
-<h2>Senzorji</h2>
+<h2>Vaši senzorji</h2>
 
 <!--
     trojni foreach loop
@@ -15,6 +15,7 @@
             tretji loop:
                 gre čez vse senzorje v bazi in izipše tiste, ki imajo isti sobaID kot soba iz drugega loopa
 -->
+
 @foreach (var hise in Model.HiseSeznam)
 {
     @if (hise.Soba.Count != 0)
@@ -23,52 +24,94 @@
             <h3>@hise.Naslov</h3>
             @foreach (var sobe in hise.Soba)
             {
-                <div style="border:solid 1px gray; padding:3px">
-                    <h4>@sobe.ImeSobe</h4>
-                    @foreach (var senzor in Model.Senzorji)
+            <div style="border:solid 1px gray; padding:3px">
+                <h4>@sobe.ImeSobe</h4>
+                @foreach (var senzor in Model.Senzorji)
+                {
+                    @if (senzor.SobaId == sobe.SobaId)
                     {
-                        @if (senzor.SobaId == sobe.SobaId)
+
+                        @if (senzor.SenzorId == 1)
                         {
-                            <p>@senzor.Senzor.ImeSenzorja vrednost: @senzor.VrednostSenzorja</p>
+
+                            @if (senzor.VrednostSenzorja <= 17)
+                            {
+                                <p>@senzor.Senzor.ImeSenzorja temperatura: @senzor.VrednostSenzorja °C      V sobi je hladno.</p>
+                            }
+
+                            else if (18 <= senzor.VrednostSenzorja && senzor.VrednostSenzorja < 26)
+                            {
+                                <p>@senzor.Senzor.ImeSenzorja temperatura: @senzor.VrednostSenzorja °C      Sobna temperatura.</p>
+                            }
+
+                            else if (senzor.VrednostSenzorja > 26)
+                            {
+                                <p>@senzor.Senzor.ImeSenzorja temperatura: @senzor.VrednostSenzorja °C      V sobi je zelo vroče.</p>
+                            }
+
+                            else if (senzor.VrednostSenzorja > 150)
+                            {
+                                <p>@senzor.Senzor.ImeSenzorja temperatura: @senzor.VrednostSenzorja °C      Previsoka temperatura je sprožila alarm!</p>
+                            }
+
                         }
+
+                        else if (senzor.SenzorId == 2)
+                        {
+
+                            @if (20 <= senzor.VrednostSenzorja && senzor.VrednostSenzorja <70 )
+                            {
+                                <p>@senzor.Senzor.ImeSenzorja stopnja svetlosti: @senzor.VrednostSenzorja       Najverjetneje je prižgana luč.</p>
+                            }
+
+                            else if (senzor.VrednostSenzorja < 20)
+                            {
+                                <p>@senzor.Senzor.ImeSenzorja stopnja svetlosti: @senzor.VrednostSenzorja       V sobi je zelo temno.</p>
+                            }
+
+                            else if (70 <= senzor.VrednostSenzorja && senzor.VrednostSenzorja <= 100)
+                            {
+                                <p>@senzor.Senzor.ImeSenzorja stopnja svetlosti: @senzor.VrednostSenzorja       V sobi je zelo svetlo -> velika poraba energije.</p>
+                            }
+
+                        }
+
+                        else if (senzor.SenzorId == 3)
+                        {
+
+                            @if (senzor.VrednostSenzorja < 30)
+                            {
+                                <p>@senzor.Senzor.ImeSenzorja vlažnost zraka: @senzor.VrednostSenzorja %      Zrak v sobi je zelo suh.</p>
+                            }
+
+                            else if (30 <= senzor.VrednostSenzorja && senzor.VrednostSenzorja < 55)
+                            {
+                                <p>@senzor.Senzor.ImeSenzorja vlažnost zraka: @senzor.VrednostSenzorja %      Vlaga v prostoru je optimalna.</p>
+                            }
+
+                            else if (senzor.VrednostSenzorja > 55)
+                            {
+                                <p>@senzor.Senzor.ImeSenzorja vlažnost zraka: @senzor.VrednostSenzorja %      Stopnja vlage v zraku, je prevelika in je zdravju škodljiva!</p>
+                            }
+
+                        }
+
+                        else if (senzor.SenzorId == 4)
+                        {
+                            @if (senzor.VrednostSenzorja == 0)
+                            {
+                                <p>@senzor.Senzor.ImeSenzorja zaznavanje premika: @senzor.VrednostSenzorja       Soba je prazna.</p>
+                            }
+                            else if (senzor.VrednostSenzorja > 0)
+                            {
+                                <p>@senzor.Senzor.ImeSenzorja zaznavanje premika: @senzor.VrednostSenzorja       Nekdo je v sobi.</p>
+                            }
+                        }
+
                     }
-                </div>
+                }
+            </div>
             }
         </div>
     }
 }
-
-<!--
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                //Html.DisplayNameFor(model => model.SenzorId)
-            </th>
-            <th>
-                //Html.DisplayNameFor(model => model.SobaId)
-            </th>
-            <th>
-                //Html.DisplayNameFor(model => model.VrednostSenzorja)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        //foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    //Html.DisplayFor(modelItem => item.SenzorId)
-                </td>
-                <td>
-                   //Html.DisplayFor(modelItem => item.SobaId)
-                </td>
-                <td>
-                    //Html.DisplayFor(modelItem => item.VrednostSenzorja)
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-    -->
