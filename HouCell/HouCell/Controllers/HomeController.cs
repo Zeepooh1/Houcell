@@ -14,6 +14,7 @@ namespace HouCell.Controllers
         
         public IActionResult Index()
         {
+            
             //če je TempData["logID"] prazen pomeni da ni bil uspešen login - client nima svojega id-ja
            if (HttpContext.Session.GetInt32("logID") == null)
             {
@@ -39,6 +40,8 @@ namespace HouCell.Controllers
              * INNER JOIN senzorji sens ON sens.sobaID = s.sobaID
              * WHERE u.userID =  h.userID;
              */ 
+
+            
              hiseModel.HiseSeznam = (from hisa in context.Hisa
                          join sobe in context.Soba
                          on hisa.HisaId equals sobe.HisaId
@@ -51,14 +54,17 @@ namespace HouCell.Controllers
                              UserId = hisa.UserId,
                              Naslov = hisa.Naslov,
                              Soba = hisa.Soba,
-                             User = hisa.User
-                             
+                             User = hisa.User,
+                             Lat = hisa.Lat,
+                             Lng = hisa.Lng
+                           
                          }).ToList();
 
             /*
              * hiseModel.Senzorji je IList iz modela hiseModel v katerega
              * shranim vse senzorje v bazi (lahko bi bolje naredil, sam se mi neda haha)
              */ 
+             
             hiseModel.Senzorji = (from senzor in context.Senzorji
                                   select new Senzorji()
                                   {
@@ -70,6 +76,8 @@ namespace HouCell.Controllers
                                   }).ToList();
 
             //v View(Index.cshtml) pošljem hiseModel
+
+            
             return View(hiseModel);
         }
 

@@ -1,0 +1,22 @@
+Houcell poročilo
+
+Houcell je IoT sistem, ki preverja temperaturo, svetlobo, vlago in aktivnost v sobah po posamičnih stanovanjih
+Uporabnik ima lahko v lasti več hiš in mu storitev temu primerno to tudi izpiše
+
+Za podatkovno bazo sva v projektu uporabila MySQL bazo. Strežnik z bazo je postavljen na osebnem računalniku, doma, pri meni (Žan Bizjak).
+Strežnik je bil postavljen s pomočjo programske opreme XAMPP s katerim lahko dostopam do phpMyAdmin strani baze za lahko uporavljanje z njo.
+Podatki so vnešeni ročno, za testiranje delovanja sistema pa sem spisal enostaveno python skripto, ki na vsake 10 sekund spremeni vrednosti senzorjev
+z neko naključno številko. Skripta deluje kot enostaven simulator aktivnosti v stanovanju.
+Ker je strežnik postavljen doma, je IP baze dinamičen in se lahko spremeni. To bi povzročilo velike težave ko se IP spremeni, saj se webapp ne more več povezati
+To sem rešil z storitvijo no-ip (https://www.noip.com/), s katero si lahko določiš domeno za svoje omrežje. Nato sem moral še pravilno port-forward-ati da se lahko
+ostali računalniki lahko povežejo na bazo (npr. moj partner Jaša Plohl ki se je povezal od svojega doma).
+
+Za spletno storitev sva uporabila ASP.NET core mvc framework. Uporabljava dva controllerja. Home in Login controller
+Login uporabiva za enostavno prijavo v sistem. Trenutno ni registracije in uporabnike je treba vpisati ročno
+Model objekte sva dobila z principom DB first, za Db Scaffolding pa sva uporabila MySQL.Data.EntetiyFrameWorkCore
+Napisana sta še dva dodatna modela in sicer HiseModel, ki shrani seznam hiš od prijavljenega uporabnika in SunsetAPI, ki 
+s pomočjo Sunrise Sunset API (https://sunrise-sunset.org/api) dobiva čas sončnega vzhoda in zahoda za določeno hišo (odvisno od lokacije in letnega časa)
+
+Za oblikovanje spletne strani sva uporabila bootstrap
+
+Projekt sva skupaj in usklajeno pisala s pomočjo GitHuba (https://github.com/), kjer sem ustvaril privatni repository za pisanje najinega projekta

@@ -49,6 +49,10 @@ namespace HouCell.Models
                     .HasColumnName("hisaID")
                     .HasColumnType("int(11)");
 
+                entity.Property(e => e.Lat).HasColumnName("lat");
+
+                entity.Property(e => e.Lng).HasColumnName("lng");
+
                 entity.Property(e => e.Naslov)
                     .IsRequired()
                     .HasColumnName("naslov")
