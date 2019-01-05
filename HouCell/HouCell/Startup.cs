@@ -39,7 +39,7 @@ namespace HouCell
             services.ConfigureMySqlContext(Configuration);
             services.ConfigureRepositoryWrapper();
             services.ConfigureLoggerService();
-            services.AddMvc();
+
             //do sem
 
             services.AddDistributedMemoryCache();
@@ -52,6 +52,10 @@ namespace HouCell
 
             });
 
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
         }

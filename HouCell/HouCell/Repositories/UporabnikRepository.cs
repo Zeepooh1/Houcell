@@ -28,8 +28,10 @@ namespace HouCell.Repositories
         public UporabnikExtended GetUporabnikWithDetails(int userId)
         {
             return new UporabnikExtended(GetUporabnikById(userId))
-            {   
-                Hise = HoucellContext.Hisa.Where(a => a.UserId == userId)
+            {
+                
+         //      Hise = HoucellContext.Hisa.Where(a => a.UserId == userId)
+
             };
         }
     }

@@ -54,14 +54,14 @@ namespace HouCell.Controllers
                              UserId = hisa.UserId,
                              Naslov = hisa.Naslov,
                              Soba = hisa.Soba,
-                             User = hisa.User,
+                    //         User = hisa.User,
                              Lat = hisa.Lat,
                              Lng = hisa.Lng
                            
                          }).ToList();
 
             /*
-             * hiseModel.Senzorji je IList iz modela hiseModel v katerega
+             * hiseModel.Senzorji je IList iz modela hiseModel v katerega   
              * shranim vse senzorje v bazi (lahko bi bolje naredil, sam se mi neda haha)
              */ 
              

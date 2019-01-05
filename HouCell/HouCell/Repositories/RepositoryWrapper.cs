@@ -16,6 +16,14 @@ namespace HouCell.Repositories
         private ITipSenzorjaRepository _tipSenzorja;
         private IUporabnikRepository _uporabnik;
 
+
+        public RepositoryWrapper(HoucellContext repositoryContext)
+        {
+            _repoContext = repositoryContext;
+            SetUsers();
+        }
+
+
         public IHisaRepository Hisa
         {
             get
@@ -81,9 +89,13 @@ namespace HouCell.Repositories
             }
         }
 
-        public RepositoryWrapper(HoucellContext repositoryContext)
+        private void SetUsers()
         {
-            _repoContext = repositoryContext;
+            foreach (var i in _repoContext.Hisa)
+            {
+                i.User = _repoContext.Uporabnik.Find(i.UserId);
+            }
         }
+
     }
 }

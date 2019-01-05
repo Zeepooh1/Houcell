@@ -38,7 +38,7 @@ namespace HouCell.Controllers
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetOwnerById(Guid id)
+        public IActionResult GetOwnerById(int id)
         {
             try
             {
