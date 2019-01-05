@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using HouCell.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -9,7 +11,9 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
+using Microsoft.Extensions.Logging;
+using NLog;
+using NLog.Extensions.Logging;
 
 namespace HouCell
 {
@@ -17,6 +21,7 @@ namespace HouCell
     {
         public Startup(IConfiguration configuration)
         {
+            LogManager.LoadConfiguration(String.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
             Configuration = configuration;
         }
 
@@ -25,7 +30,18 @@ namespace HouCell
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           
+
+            //novo
+            services.ConfigureCors();
+
+            services.ConfigureIISIntegration();
+
+            services.ConfigureMySqlContext(Configuration);
+            services.ConfigureRepositoryWrapper();
+            services.ConfigureLoggerService();
+            services.AddMvc();
+            //do sem
+
             services.AddDistributedMemoryCache();
 
             services.AddSession(options =>
@@ -57,6 +73,32 @@ namespace HouCell
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseSession();
+
+            //novo
+            app.UseCors("CorsPolicy");
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = Microsoft.AspNetCore.HttpOverrides.ForwardedHeaders.All
+            });
+
+            app.Use(async (context, next) =>
+            {
+
+                await next();
+                if(context.Response.StatusCode == 404 && !Path.HasExtension(context.Request.Path.Value))
+                {
+                    context.Request.Path = "/index.html";
+                    await next();
+                }
+
+            });
+
+            app.UseStaticFiles();
+
+            //app.UseMvc();
+
+            //do sem
 
             app.UseMvc(routes =>
             {

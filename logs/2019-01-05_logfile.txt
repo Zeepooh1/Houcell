@@ -1,0 +1,13 @@
+2019-01-05 15:31:20.5914 INFO Here is info message from our values controller.
+2019-01-05 15:31:20.9513 DEBUG Here is debug message from our values controller.
+2019-01-05 15:31:20.9513 WARN Here is warn message from our values controller.
+2019-01-05 15:31:20.9694 ERROR Here is error message from our values controller.
+2019-01-05 15:36:39.2762 INFO Here is info message from our values controller.
+2019-01-05 15:36:39.4757 DEBUG Here is debug message from our values controller.
+2019-01-05 15:36:39.5059 WARN Here is warn message from our values controller.
+2019-01-05 15:36:39.5549 ERROR Here is error message from our values controller.
+2019-01-05 15:40:03.9338 INFO Here is info message from our values controller.
+2019-01-05 15:40:04.0529 DEBUG Here is debug message from our values controller.
+2019-01-05 15:40:04.0579 WARN Here is warn message from our values controller.
+2019-01-05 15:40:04.0579 ERROR Here is error message from our values controller.
+2019-01-05 16:21:10.4489 INFO Returned all owners from database.
