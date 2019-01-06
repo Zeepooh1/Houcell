@@ -91,10 +91,10 @@ namespace HouCell.Models
                     .HasColumnName("vrednostSenzorja")
                     .HasColumnType("int(11)");
 
-                entity.HasOne(d => d.Senzor)
-                    .WithMany(p => p.Senzorji)
-                    .HasForeignKey(d => d.SenzorId)
-                    .HasConstraintName("fk_senzorID");
+                entity.HasOne(d => d.Senzor);
+                    //.WithMany(p => p.Senzorji)
+                    //.HasForeignKey(d => d.SenzorId)
+                    //.HasConstraintName("fk_senzorID");
 
                 entity.HasOne(d => d.Soba)
                     .WithMany(p => p.Senzorji)

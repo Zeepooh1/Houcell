@@ -21,6 +21,9 @@ namespace HouCell.Repositories
         {
             _repoContext = repositoryContext;
             SetUsers();
+            SetSoba();
+            SetSenzor();
+            SetTipSenzorja();
         }
 
 
@@ -96,6 +99,45 @@ namespace HouCell.Repositories
                 i.User = _repoContext.Uporabnik.Find(i.UserId);
             }
         }
+
+        private void SetSoba()
+        {
+            foreach (var i in _repoContext.Soba)
+            {
+                i.Hisa = _repoContext.Hisa.Find(i.HisaId);
+            }
+        }
+
+        private void SetSenzor()
+        {
+            foreach (var i in _repoContext.Senzorji)
+            {
+                i.Soba = _repoContext.Soba.Find(i.SobaId);
+            }
+        }
+
+        private void SetTipSenzorja()
+        {
+            foreach (var i in _repoContext.Senzorji)
+            {
+                i.Senzor = _repoContext.Tipsenzorja.Find(i.SenzorId);
+            }
+        }
+
+        //private void SetTipSenzorja()
+        //{
+        //    foreach (var i in _repoContext.Tipsenzorja)
+        //    {
+        //        //foreach (var j in i.Senzorji)
+        //        //{
+
+        //        //i.Senzorji = _repoContext.Senzorji.Where(a => i.SenzorId == a.SenzorId).ToList();
+        //        i.Senzorji = _repoContext.Senzorji.Where(a => i == a.Senzor).ToList();
+
+        //        //}
+
+        //    }
+        //}
 
     }
 }

@@ -11,3 +11,4 @@
 2019-01-05 15:40:04.0579 WARN Here is warn message from our values controller.
 2019-01-05 15:40:04.0579 ERROR Here is error message from our values controller.
 2019-01-05 16:21:10.4489 INFO Returned all owners from database.
+2019-01-05 17:17:43.4256 INFO Returned all uporabniki from database.
