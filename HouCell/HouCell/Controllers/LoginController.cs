@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 using MySql.Data.MySqlClient;
+using HouCell.RepositoryInterfaces;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -12,10 +13,18 @@ namespace HouCell.Controllers
 {
     public class LoginController : Controller
     {
+        ILoggerManager _logger;
+        IRepositoryWrapper _wrapper;
+        public LoginController(ILoggerManager logger, IRepositoryWrapper wrapper)
+        {
+            _logger = logger;
+            _wrapper = wrapper;
+        }
         // GET: /<controller>/
         [HttpGet]
         public IActionResult Index()
         {
+            HttpContext.Session.Remove("logID");
             return View();
         }
 
@@ -25,33 +34,16 @@ namespace HouCell.Controllers
 
             bool success = false;
 
-            using (var connection = new MySqlConnection
+            
+            int logID = _wrapper.Uporabnik.UporabnikExists(userName, pass);
+            if (logID != -1)
             {
-
-                //SPREMENI CONNECTION STRING 
-                ConnectionString = "server=houcellbase.ddns.net;user id=remote;password=seminarskaGeslo;persistsecurityinfo=True;port=3306;database=Houcell"
-            })
-            {
-                connection.Open();
-                string query = "SELECT * FROM uporabnik WHERE userName =@userName AND pass =@pass;";
-                var command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@userName", userName);
-                command.Parameters.AddWithValue("@pass", pass);
-                Console.WriteLine("Username: " + userName);
-                using (MySqlDataReader reader = command.ExecuteReader()) 
-                {
-                    while (reader.Read())
-                    {
-                        //Če je login uspešen v TempData["logID"] zapišem vrednost userID
-                        //TempData["logID"] = (int)reader["userID"];
-
-                        HttpContext.Session.SetInt32("logID", (Int32)reader["userID"]);
-                        TempData["logID"] = (int)reader["userID"];
-                        success = true;
-                    }
-                }
-                connection.Close();
+                HttpContext.Session.SetInt32("logID", (Int32)logID);
+                TempData["logID"] = (int)logID;
+                success = true;
             }
+
+
             if (success)
             {
                 return RedirectToAction("Index", "Home");

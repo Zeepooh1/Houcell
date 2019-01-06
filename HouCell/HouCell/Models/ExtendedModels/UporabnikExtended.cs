@@ -23,5 +23,7 @@ namespace HouCell.Models.ExtendedModels
             UserName = uporabnik.UserName;
             pass = uporabnik.Pass;
         }
+
+
     }
 }

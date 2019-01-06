@@ -25,14 +25,19 @@ namespace HouCell.Repositories
             return FindByCondition(uporabnik => uporabnik.UserId.Equals(uporabnikId)).DefaultIfEmpty(new Uporabnik()).FirstOrDefault();
         }
 
-        public UporabnikExtended GetUporabnikWithDetails(int userId)
+        public int UporabnikExists(string user, string pass)
         {
-            return new UporabnikExtended(GetUporabnikById(userId))
+            foreach(var u in RepositoryContext.Uporabnik)
             {
-                
-         //      Hise = HoucellContext.Hisa.Where(a => a.UserId == userId)
+                if(u.UserName == user && u.Pass == pass)
+                {
+                    return u.UserId;
+                }
+            }
 
-            };
+            return -1;
         }
+
+
     }
 }

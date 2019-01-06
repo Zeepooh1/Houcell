@@ -8,10 +8,10 @@ namespace HouCell.Models
     [Table("tipSenzorja")]
     public partial class Tipsenzorja
     {
-        //public Tipsenzorja()
-        //{
+        public Tipsenzorja()
+        {
         //    Senzorji = new HashSet<Senzorji>();
-        //}
+        }
 
         [Key]
         public int SenzorId { get; set; }

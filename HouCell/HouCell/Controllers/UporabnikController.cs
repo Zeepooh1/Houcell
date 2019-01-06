@@ -62,29 +62,6 @@ namespace HouCell.Controllers
             }
         }
 
-        [HttpGet("{id}/account")]
-        public IActionResult GetUporabnikWithDetails(int id)
-        {
-            try
-            {
-                var owner = _repository.Uporabnik.GetUporabnikWithDetails(id);
-
-                if (owner.Id.Equals(Guid.Empty))
-                {
-                    _logger.LogError($"Uporabnik with id: {id}, hasn't been found in db.");
-                    return NotFound();
-                }
-                else
-                {
-                    _logger.LogInfo($"Returned uporabnik with details for id: {id}");
-                    return Ok(owner);
-                }
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Something went wrong inside GetUporabnikWithDetails action: {ex.Message}");
-                return StatusCode(500, "Internal server error");
-            }
-        }
+       
     }
 }
