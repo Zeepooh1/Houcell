@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HouCell.Models;
 using HouCell.RepositoryInterfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,17 +21,23 @@ namespace HouCell.Controllers
             _wrapper = wrapper;
         }
 
-        [HttpPost]
+/*         [HttpPost]
+        public IActionResult Index()
+        {
+
+            
+          
+            return Ok(_wrapper.Uporabnik.GetUporabnikById(1));
+
+        }*/
+        [HttpGet]
         public IActionResult Index(string userName, string pass)
         {
 
-            //bool success = false;
-
             int logID = _wrapper.Uporabnik.UporabnikExists(userName, pass);
-
-            return Ok(logID);
+          
+            return Ok("[" +logID + "]");
 
         }
-
     }
 }

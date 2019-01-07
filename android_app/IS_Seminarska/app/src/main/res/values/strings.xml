@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Houcell</string>
+    <string name="userHint">UserName</string>
+    <string name="passHint">Pasword</string>
+    <string name="logInButtonHint">Prijava</string>
+</resources>
