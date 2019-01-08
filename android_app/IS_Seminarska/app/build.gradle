@@ -29,4 +29,5 @@ dependencies {
     implementation files('libs/apache-mime4j-0.6.jar')
     implementation files('libs/httpmime-4.0.1.jar')
     api 'com.mcxiaoke.volley:library:1.0.19'
+    implementation 'com.android.support:design:28.0.0'
 }
