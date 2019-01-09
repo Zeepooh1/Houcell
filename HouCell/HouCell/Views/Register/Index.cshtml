@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "LoginLayout";
+
+}
+
+<h2>Register</h2>
+
+<form method="post">
+    
+    <div>username: </div><input type="text" name="user" id="user" placeholder="username" /> <br/>
+    <div>password: </div><input type="password" name="pass" id="pass" placeholder="password" /><br />
+    <div>confirm password: </div><input type="password" name="confirmPass" id="confirmPass" placeholder="confirm password" /><div style="color:red;">@if ((bool)ViewData["invalid"] == true) { Html.Raw("password does not match"); } </div><br />
+    <button type="submit" id="submit">Registracija</button>
+
+</form>
+
+

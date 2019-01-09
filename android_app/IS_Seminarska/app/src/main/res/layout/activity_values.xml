@@ -2,39 +2,36 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/homeConstraint"
+    android:id="@+id/valueConstraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    tools:context=".ValuesActivity">
 
     <TableLayout
-        android:id="@+id/tableLayout"
-        android:layout_width="385dp"
-        android:layout_height="598dp"
-        android:layout_marginBottom="8dp"
+        android:id="@+id/valueTable"
+        android:layout_width="363dp"
+        android:layout_height="634dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/refreshBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.112">
-
+        app:layout_constraintTop_toBottomOf="@+id/imeSobe"
+        app:layout_constraintVertical_bias="0.0">
 
     </TableLayout>
 
-    <Button
-        android:id="@+id/refreshBtn"
-        android:layout_width="258dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="76dp"
+    <TextView
+        android:id="@+id/imeSobe"
+        android:layout_width="375dp"
+        android:layout_height="33dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:onClick="refresh"
-        android:text="@string/refreshButton"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="24dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

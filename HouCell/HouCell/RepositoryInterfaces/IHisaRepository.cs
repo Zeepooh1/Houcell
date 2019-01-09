@@ -8,5 +8,6 @@ namespace HouCell.RepositoryInterfaces
 {
     public interface IHisaRepository : IRepositoryBase<Hisa>
     {
+        void CreateHisa(Hisa hisa);
     }
 }

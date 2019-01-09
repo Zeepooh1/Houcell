@@ -51,6 +51,7 @@ namespace HouCell.Repositories
 
                 return _uporabnik;
             }
+            set { }
         }
 
         public ISenzorjiRepository Senzorji

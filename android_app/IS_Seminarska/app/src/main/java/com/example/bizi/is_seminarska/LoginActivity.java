@@ -3,42 +3,22 @@ package com.example.bizi.is_seminarska;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.Response;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 import org.json.JSONException;
 
-import java.security.SecureRandom;
-import java.security.cert.CertificateException;
-import java.security.cert.X509Certificate;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSession;
-import javax.net.ssl.X509TrustManager;
-
-import static android.os.Build.VERSION_CODES.M;
-
-public class Login extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
     private Button b;
 
     @Override
@@ -73,7 +53,7 @@ public class Login extends AppCompatActivity {
                                     // For each repo, add a new line to our repo list.
                                     Integer jsonObj = response.getInt(i);
                                     if(jsonObj != -1){
-                                        Intent intent = new Intent(Login.this, HomeActivity.class);
+                                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                                         intent.putExtra("logID", jsonObj);
                                         startActivity(intent);
 

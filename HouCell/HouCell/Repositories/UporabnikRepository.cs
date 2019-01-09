@@ -10,6 +10,7 @@ namespace HouCell.Repositories
 {
     public class UporabnikRepository : RepositoryBase<Uporabnik>, IUporabnikRepository
     {
+        int lastId;
         public UporabnikRepository(HoucellContext repositoryContext)
             : base(repositoryContext)
         {
@@ -38,6 +39,10 @@ namespace HouCell.Repositories
             return -1;
         }
 
-
+        public void CreateUporabnik(Uporabnik uporabnik)
+        {
+            Create(uporabnik);
+            Save();
+        }
     }
 }

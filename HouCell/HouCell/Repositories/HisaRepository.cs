@@ -13,5 +13,11 @@ namespace HouCell.Repositories
             : base(repositoryContext)
         {
         }
+
+        public void CreateHisa(Hisa hisa)
+        {
+            Create(hisa);
+            Save();
+        }
     }
 }

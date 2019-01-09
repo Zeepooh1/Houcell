@@ -16,7 +16,7 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".Login">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,7 +24,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".HomeActivity" />
-        <activity android:name=".RoomsActivity"></activity>
+        <activity android:name=".RoomsActivity" />
+        <activity android:name=".ValuesActivity"></activity>
     </application>
 
 </manifest>

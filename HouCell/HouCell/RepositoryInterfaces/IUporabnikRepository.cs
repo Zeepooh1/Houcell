@@ -12,6 +12,6 @@ namespace HouCell.RepositoryInterfaces
         IEnumerable<Uporabnik> GetAllUporabnik();
         Uporabnik GetUporabnikById(int uporabnikId);
         int UporabnikExists(string user, string pass);
-
+        void CreateUporabnik(Uporabnik uporabnik);
     }
 }

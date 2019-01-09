@@ -3,4 +3,5 @@
     <string name="userHint">UserName</string>
     <string name="passHint">Pasword</string>
     <string name="logInButtonHint">Prijava</string>
+    <string name="refreshButton">Refresh</string>
 </resources>
