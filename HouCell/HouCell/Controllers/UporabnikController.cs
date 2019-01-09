@@ -52,7 +52,7 @@ namespace HouCell.Controllers
                 else
                 {
                     _logger.LogInfo($"Returned uporabnik with id: {id}");
-                    return Ok(owner);
+                    return Ok(owner.Hisa);
                 }
             }
             catch (Exception ex)

@@ -57,7 +57,7 @@ public class Login extends AppCompatActivity {
         final String pass = in.getText().toString();
         RequestQueue queue = Volley.newRequestQueue(this);  // this = context
         String url = String.format("https://houcellbase.ddns.net:44305/api/login?userName=%s&pass=%s", user, pass);
-        trustEveryone();
+        Trust.trustEveryone();
 
 // prepare the Request
 
@@ -73,9 +73,13 @@ public class Login extends AppCompatActivity {
                                     // For each repo, add a new line to our repo list.
                                     Integer jsonObj = response.getInt(i);
                                     if(jsonObj != -1){
-                                        startActivity(new Intent(Login.this, HomeActivity.class));
+                                        Intent intent = new Intent(Login.this, HomeActivity.class);
+                                        intent.putExtra("logID", jsonObj);
+                                        startActivity(intent);
+
                                     }
                                     setB(true);
+
 
                                 } catch (JSONException e) {
                                     // If there is an error then output this to the logs.
@@ -109,27 +113,7 @@ public class Login extends AppCompatActivity {
        setB(false);
     }
 
-    private void trustEveryone() {
-        try {
-            HttpsURLConnection.setDefaultHostnameVerifier(new HostnameVerifier(){
-                public boolean verify(String hostname, SSLSession session) {
-                    return true;
-                }});
-            SSLContext context = SSLContext.getInstance("TLS");
-            context.init(null, new X509TrustManager[]{new X509TrustManager(){
-                public void checkClientTrusted(X509Certificate[] chain,
-                                               String authType) throws CertificateException {}
-                public void checkServerTrusted(X509Certificate[] chain,
-                                               String authType) throws CertificateException {}
-                public X509Certificate[] getAcceptedIssuers() {
-                    return new X509Certificate[0];
-                }}}, new SecureRandom());
-            HttpsURLConnection.setDefaultSSLSocketFactory(
-                    context.getSocketFactory());
-        } catch (Exception e) { // should never happen
-            e.printStackTrace();
-        }
-    }
+
 
     private void setB(boolean state){
         b.setEnabled(state);
