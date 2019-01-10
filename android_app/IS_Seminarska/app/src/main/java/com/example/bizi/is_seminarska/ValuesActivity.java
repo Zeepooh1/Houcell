@@ -21,6 +21,8 @@ import org.json.JSONObject;
 public class ValuesActivity extends AppCompatActivity {
     TableLayout tableLayout;
     TextView roomName;
+    TextView evalView;
+    LinearLayout valueLinear;
     JSONArray senzorji;
     @Override
     protected void onStart() {
@@ -28,8 +30,10 @@ public class ValuesActivity extends AppCompatActivity {
         for(int i = 0; i < tableLayout.getChildCount(); i++){
             ((ViewManager)tableLayout).removeView(tableLayout.getChildAt(i));
         }
+        for(int i = 0; i < valueLinear.getChildCount(); i++){
+            ((ViewManager)valueLinear).removeView(valueLinear.getChildAt(i));
+        }
         Intent intent = getIntent();
-
         roomName.setText(intent.getStringExtra("imeSobe"));
         try {
             senzorji = new JSONArray(intent.getStringExtra("senzorji"));
@@ -54,18 +58,21 @@ public class ValuesActivity extends AppCompatActivity {
         );
         params.setMargins(8, 8, 8, 8);
         roomName.setLayoutParams(params);
-
+        evalView = (TextView)findViewById(R.id.valueText);
         tableLayout = findViewById(R.id.valueTable);
         params = new ConstraintLayout.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.setMargins(8, 8, 8, 8);
         tableLayout.setLayoutParams(params);
-
+        valueLinear = findViewById(R.id.valueLinear);
         ConstraintSet constraintSet = new ConstraintSet();
         constraintSet.clone(constraintLayout);
         constraintSet.connect(roomName.getId(), ConstraintSet.TOP, constraintLayout.getId(), ConstraintSet.TOP, 8);
         constraintSet.connect(roomName.getId(), ConstraintSet.LEFT, constraintLayout.getId(), ConstraintSet.LEFT, 8);
         constraintSet.connect(tableLayout.getId(), ConstraintSet.TOP, roomName.getId(), ConstraintSet.BOTTOM);
         constraintSet.connect(tableLayout.getId(), ConstraintSet.LEFT, constraintLayout.getId(), ConstraintSet.LEFT, 8);
+        constraintSet.connect(tableLayout.getId(), ConstraintSet.BOTTOM, valueLinear.getId(), ConstraintSet.TOP, 8);
+        constraintSet.connect(valueLinear.getId(), ConstraintSet.LEFT, constraintLayout.getId(), ConstraintSet.LEFT, 8);
+        constraintSet.connect(valueLinear.getId(), ConstraintSet.BOTTOM, constraintLayout.getId(), ConstraintSet.BOTTOM, 8);
         constraintSet.applyTo(constraintLayout);
 
         /*tableLayout.setLayoutParams(new ConstraintLayout.LayoutParams(
@@ -83,6 +90,7 @@ public class ValuesActivity extends AppCompatActivity {
         JSONObject senzor;
         String viewText;
         String sensType;
+        StringBuilder evalStr = new StringBuilder("");
         int sensVal;
         for(int i = 0; i < senzorji.length(); i++){
             try{
@@ -98,14 +106,45 @@ public class ValuesActivity extends AppCompatActivity {
                 switch(sensType){
                     case "termometer":
                         viewText += "°C";
+                        if(sensVal < 19){
+                            evalStr.append("V Sobi je hladno \n");
+                        }
+                        else if(sensVal >= 19 && sensVal < 24){
+                            evalStr.append("V sobi je prijetno \n");
+                        }
+                        else if(sensVal >= 24){
+                            evalStr.append("V sobi je vroče\n");
+                        }
                         break;
 
                     case "photoresistor":
+                        if(sensVal < 40){
+                            evalStr.append("V sobi temno \n");
+                        }
+                        else if(sensVal >= 40 ){
+                            evalStr.append("V sobi je svetlo \n");
+                        }
+
                         break;
                     case "vlaga":
                         viewText += "%";
+                        if(sensVal < 30){
+                            evalStr.append("V sobi je zelo suh zrak \n");
+                        }
+                        else if(sensVal >= 30 && sensVal < 65){
+                            evalStr.append("V sobi je prijetna vlaga \n");
+                        }
+                        else {
+                            evalStr.append("V sobi je prevelažno\n");
+                        }
                         break;
                     case "IR sensor":
+                        if(sensVal == 1){
+                            evalStr.append("V sobi je nekdo \n");
+                        }
+                        else {
+                            evalStr.append("V sobi ni nikogar\n");
+                        }
                         break;
 
                 }
@@ -125,9 +164,14 @@ public class ValuesActivity extends AppCompatActivity {
                 tableRow.addView(linearLayout);
                 tableLayout.addView((tableRow));
             }
+
             catch(JSONException e){
                 Log.e("Volley", "Invalid JSONObject");
             }
         }
+        evalStr.trimToSize();
+        String a = evalStr.toString();
+        evalView.setText(a);
+        valueLinear.addView(evalView);
     }
 }
